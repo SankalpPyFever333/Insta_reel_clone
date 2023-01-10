@@ -1,0 +1,70 @@
+/* Now we want to that videos should appear in the scrollable form, So for you can use html{} tag and inside it,use scroll-snap-type: */
+
+html{
+  scroll-snap-type: y mandatory;
+  /* it means that scrolling can be done in y axis. */
+
+
+}
+
+/* In insta or tik-tok, you can notice that when you scroll, videos will not appear suddenly,it scrolled according to your finger. */
+
+.app{
+  display: grid;
+  place-items: center; /* It will place the items in center.
+  When you use grid to center the elements,it gets center horizontally as well vetically.
+  
+  */
+  height: 100vh;
+  background-color: black;
+
+
+}
+
+.app_top > h1{
+  text-align: center;
+  color: white;
+
+}
+
+.app_top{
+  margin-bottom: -40px;
+  
+}
+
+.app_logo{
+  height: 12vh;
+}
+
+.app_videos{
+  position: relative;
+  height: 65vh;
+  background-color: white;
+  width: 70%;
+  border-radius: 20px;
+  max-width: 450px;
+  max-height: 1200px;
+  overflow: scroll; /*due to this scroll bar will appear in x and y axis and due to that our border radius will disappear except the top left corner.*/
+  scroll-snap-type: y mandatory;
+}
+
+/* it will hide scroll bar for chrome,safari,opera nad edge also. */
+.app_videos::-webkit-scrollbar{
+  display: none; /*It will remove the scroll bar from the app_videos container.*/
+}
+/* It will hide scroll bar for Edge and Firefox */
+.app_videos{
+  -ms-overflow-style: none; /*For Edge*/
+  scrollbar-width: none;  /* for FireFox*/
+}
+
+
+
+
+
+
+
+
+
+
+
