@@ -1,9 +1,13 @@
+import { getDocs } from "firebase/firestore";
+import { collection } from "firebase/firestore";
+import React from "react";
+import db from "./firebase";
 import { useEffect, useState } from "react";
 import "./App.css";
 import VideoCard from "./VideoCard";
 import db from "./firebase";
 import React from "react";
-import { doc } from "firebase/firestore";
+
 // import { collection } from "firebase/firestore";
 
 // import {ref, onValue} from "firebase/database";
@@ -12,33 +16,25 @@ import { doc } from "firebase/firestore";
 
 function App() {
   // Now, we have to pull information from the database. So, firstly we need a variable that will keep track of all the reels. In react, we create variable we use useState.
-  const [reel, setReels] = useState([{
-    avatarSrc:"https://i.pinimg.com/736x/47/3f/01/473f01670ae8c0bfa515541f554f0ea1.jpg",
-    channel: "FluteFever",
-    likes: 89,
-    shares: 23,
-    song: "Pandeyji Flute Song.mp3",
-    url: "ReelsVideo/flutevideo.mp4",
-  }]);
-  
-  
-  
+
   // snapshot.docs returns the array containing all reels and map() will traverse each reels one by one.
   // doc.data(): any data that is associated with that reels, we get that info. Actually that data about that reel is an object (key-value pair). All that is asigned to doc.
   // So, finally you going to get the array of objects and it gets inside the reels variable.
   // This simply means that whenver something is changed or added to the Collection, it will provide that fresh data. It will update the database immediately.
   // There can be many collections you have, here we are doing it for reels collection.
-  
-  useEffect(()=>{
-    db.collection("reels").onSnapshot(snapshot=> setReels(snapshot.docs.map(doc=> doc.data())))
-  }
-  
-  )
-  
-  
+
+  useEffect(() => {
+    (async () => {
+      const listCol = collection(db, "reels");
+      const listSnapshot = await getDocs(listCol);
+      const List = listSnapshot.docs.map((doc) => doc.data());
+      console.log(List);
+    })();
+  }, []);
+  //  Above is called self-call of function. clean up function
+
   // Inside that [], you can give more values whenver they get change this useEffect will run. It is called dependency array.
-  
-  
+
   return (
     // using BEM naming convention for naming class or id.
     <div className="app">
@@ -61,18 +57,19 @@ function App() {
         {/* You can write <VideoCard/> component as many you want. */}
         {/* Now , we pass it access values from firebase and pass it to the props. */}
         {/* reels is the name of our collection */}
-        {reel.map(element => {
-          <VideoCard
-            channel={element.channel}
-            avatarSrc={element.avatarSrc}
-            song={element.song}
-            url={element.url}
-            likes={element.likes}
-            shares={element.shares}
-            key={element.id}
-          
-          />
-      })}
+        {List.map(({ channel, avatarSrc, url, song, likes, shares }) => {
+          return (
+            <VideoCard
+              channel={channel}
+              avatarSrc={avatarSrc}
+              url={url}
+              song={song}
+              likes={likes}
+              shares={shares}
+            />
+          );
+        })}
+
         {/* an arrow function wrapped by () will return the value it wraps, so if I wanted to use curly braces I had to add the return keyword */}
       </div>
     </div>
