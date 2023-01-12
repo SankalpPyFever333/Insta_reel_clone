@@ -22,12 +22,12 @@ function App() {
   // So, finally you going to get the array of objects and it gets inside the reels variable.
   // This simply means that whenver something is changed or added to the Collection, it will provide that fresh data. It will update the database immediately.
   // There can be many collections you have, here we are doing it for reels collection.
-
+  const [List,setList]= useState([]);
   useEffect(() => {
     (async () => {
       const listCol = collection(db, "reels");
       const listSnapshot = await getDocs(listCol);
-      const List = listSnapshot.docs.map((doc) => doc.data());
+      setList(listSnapshot.docs.map((doc) => doc.data()));
       console.log(List);
     })();
   }, []);
