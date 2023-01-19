@@ -6,7 +6,7 @@ import VideoFooter from './VideoFooter';
 function VideoCard({url,likes,shares,channel,avatarSrc,song}) {
   // we want that when we click the video, the video start playig. For that we use useState hook and useRef hook
   // basically useRef creates a reference to the video.
-  const {isVideoPlaying,setIsVideoPlaying}= useState(false);
+  const [isVideoPlaying,setIsVideoPlaying]= useState(false);
   const videoRef= useRef(null);
   const onVideoPress=()=>{
     if(isVideoPlaying){
