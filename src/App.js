@@ -1,11 +1,11 @@
 import { getDocs } from "firebase/firestore";
 import { collection } from "firebase/firestore";
-import React from "react";
+
 import db from "./firebase";
 import { useEffect, useState } from "react";
 import "./App.css";
 import VideoCard from "./VideoCard";
-import db from "./firebase";
+
 import React from "react";
 
 // import { collection } from "firebase/firestore";
